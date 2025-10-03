@@ -73,6 +73,18 @@ const DigimonDetail = () => {
               <p className="text-muted-foreground leading-relaxed">{digimon.description}</p>
             </div>
 
+            {/* Design Section */}
+            {digimon.design && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-foreground">Design</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">{digimon.design}</p>
+                </CardContent>
+              </Card>
+            )}
+
             {/* Attacks */}
             {digimon.attacks && digimon.attacks.length > 0 && (
               <Card>
@@ -83,11 +95,12 @@ const DigimonDetail = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="space-y-3">
                     {digimon.attacks.map((attack) => (
-                      <Badge key={attack} variant="outline" className="px-3 py-1">
-                        {attack}
-                      </Badge>
+                      <div key={attack.name} className="border-l-2 border-primary pl-3">
+                        <h4 className="font-semibold text-foreground mb-1">{attack.name}</h4>
+                        <p className="text-sm text-muted-foreground">{attack.description}</p>
+                      </div>
                     ))}
                   </div>
                 </CardContent>

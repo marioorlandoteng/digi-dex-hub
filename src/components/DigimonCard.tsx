@@ -18,21 +18,21 @@ export const DigimonCard = ({ digimon }: DigimonCardProps) => {
               alt={digimon.name}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
-            <div className="absolute top-3 right-3">
-              <Badge className="bg-primary text-primary-foreground">
+            <div className="absolute top-2 right-2">
+              <Badge className="bg-primary text-primary-foreground text-[10px] px-2 py-0.5">
                 {digimon.level}
               </Badge>
             </div>
           </div>
-          <div className="p-4">
-            <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+          <div className="p-3">
+            <h3 className="text-base font-bold mb-1.5 text-foreground group-hover:text-primary transition-colors">
               {digimon.name}
             </h3>
-            <div className="flex gap-2 flex-wrap">
-              <Badge variant="outline" className="text-xs">
+            <div className="flex gap-1.5 flex-wrap">
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0">
                 {digimon.type}
               </Badge>
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
                 {digimon.attribute}
               </Badge>
             </div>
