@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { digimonDatabase } from "@/data/digimonData";
 import { DigimonCard } from "@/components/DigimonCard";
 import { Header } from "@/components/Header";
+import { MusicPlayer } from "@/components/MusicPlayer";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
@@ -12,7 +13,7 @@ const ITEMS_PER_PAGE = 8;
 const Index = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: "start" },
+    { loop: false, align: "start" },
     [Autoplay({ delay: 3000, stopOnInteraction: false })]
   );
 
@@ -36,6 +37,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-[var(--gradient-hero)]">
       <Header />
+      <MusicPlayer />
       
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowLeft, Zap } from "lucide-react";
+import { ArrowLeft, Zap, Palette, BookOpen, Tv } from "lucide-react";
 import { Header } from "@/components/Header";
 
 const DigimonDetail = () => {
@@ -68,12 +68,13 @@ const DigimonDetail = () => {
                 <CardContent>
                   <div className="space-y-2">
                     {digimon.priorForms.map((form) => (
-                      <div
+                      <Link
                         key={form}
-                        className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                        to={`/digimon/${form.toLowerCase()}`}
+                        className="block text-sm font-medium text-foreground hover:text-primary transition-colors cursor-pointer"
                       >
                         {form}
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </CardContent>
@@ -87,12 +88,13 @@ const DigimonDetail = () => {
                 <CardContent>
                   <div className="space-y-2">
                     {digimon.nextForms.map((form) => (
-                      <div
+                      <Link
                         key={form}
-                        className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                        to={`/digimon/${form.toLowerCase()}`}
+                        className="block text-sm font-medium text-foreground hover:text-primary transition-colors cursor-pointer"
                       >
                         {form}
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </CardContent>
@@ -123,10 +125,28 @@ const DigimonDetail = () => {
               {digimon.design && (
                 <Card>
                   <CardHeader>
-                    <CardTitle className="text-foreground">Design</CardTitle>
+                    <CardTitle className="flex items-center gap-2 text-foreground">
+                      <Palette className="w-5 h-5 text-secondary" />
+                      Design
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground leading-relaxed">{digimon.design}</p>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Etymologies Section */}
+              {digimon.etymologies && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-foreground">
+                      <BookOpen className="w-5 h-5 text-secondary" />
+                      Etymologies
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground leading-relaxed">{digimon.etymologies}</p>
                   </CardContent>
                 </Card>
               )}
@@ -147,6 +167,27 @@ const DigimonDetail = () => {
                           <h4 className="font-semibold text-foreground mb-1">{attack.name}</h4>
                           <p className="text-sm text-muted-foreground">{attack.description}</p>
                         </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Appearances Section */}
+              {digimon.appearances && digimon.appearances.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-foreground">
+                      <Tv className="w-5 h-5 text-secondary" />
+                      Appearances
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-2">
+                      {digimon.appearances.map((appearance) => (
+                        <Badge key={appearance} variant="outline" className="text-sm">
+                          {appearance}
+                        </Badge>
                       ))}
                     </div>
                   </CardContent>
