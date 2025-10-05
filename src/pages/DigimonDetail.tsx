@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowLeft, Zap, Palette, BookOpen, Tv } from "lucide-react";
+import { ArrowLeft, Zap, Palette, BookOpen, Tv, Calendar, ExternalLink } from "lucide-react";
 import { Header } from "@/components/Header";
 
 const DigimonDetail = () => {
@@ -106,20 +106,48 @@ const DigimonDetail = () => {
           <ScrollArea className="h-full pr-4">
             <div className="space-y-6 pb-8">
               <div>
-                <h1 className="text-5xl font-bold mb-4 text-foreground">{digimon.name}</h1>
+                <h1 className="text-5xl font-bold mb-2 text-foreground">{digimon.name}</h1>
+                {digimon.kanji && (
+                  <p className="text-2xl text-muted-foreground mb-1">{digimon.kanji}</p>
+                )}
+                {digimon.romanization && (
+                  <p className="text-lg text-muted-foreground mb-4 italic">{digimon.romanization}</p>
+                )}
                 <div className="flex gap-3 flex-wrap mb-4">
                   <Badge className="text-sm px-4 py-2 bg-primary text-primary-foreground">
                     {digimon.level}
                   </Badge>
-                  <Badge variant="outline" className="text-sm px-4 py-2">
-                    {digimon.type}
-                  </Badge>
                   <Badge variant="secondary" className="text-sm px-4 py-2">
                     {digimon.attribute}
+                  </Badge>
+                  <Badge variant="outline" className="text-sm px-4 py-2">
+                    {digimon.type}
                   </Badge>
                 </div>
                 <p className="text-muted-foreground leading-relaxed">{digimon.description}</p>
               </div>
+
+              {/* Attacks */}
+              {digimon.attacks && digimon.attacks.length > 0 && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-foreground">
+                      <Zap className="w-5 h-5 text-secondary" />
+                      Attacks
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {digimon.attacks.map((attack) => (
+                        <div key={attack.name} className="border-l-2 border-primary pl-3">
+                          <h4 className="font-semibold text-foreground mb-1">{attack.name}</h4>
+                          <p className="text-sm text-muted-foreground">{attack.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Design Section */}
               {digimon.design && (
@@ -151,45 +179,63 @@ const DigimonDetail = () => {
                 </Card>
               )}
 
-              {/* Attacks */}
-              {digimon.attacks && digimon.attacks.length > 0 && (
+              {/* Debut and Appearances Section */}
+              {(digimon.debut || (digimon.appearances && digimon.appearances.length > 0)) && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-foreground">
-                      <Zap className="w-5 h-5 text-secondary" />
-                      Attacks
+                      <Calendar className="w-5 h-5 text-secondary" />
+                      Debut and Appearances
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {digimon.attacks.map((attack) => (
-                        <div key={attack.name} className="border-l-2 border-primary pl-3">
-                          <h4 className="font-semibold text-foreground mb-1">{attack.name}</h4>
-                          <p className="text-sm text-muted-foreground">{attack.description}</p>
+                  <CardContent className="space-y-4">
+                    {digimon.debut && (
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-2">Debut</h4>
+                        <div className="space-y-1 text-muted-foreground">
+                          <p><span className="font-medium">Year:</span> {digimon.debut.year}</p>
+                          <p><span className="font-medium">Product:</span> {digimon.debut.product}</p>
+                          {digimon.debut.bookEntry && (
+                            <p><span className="font-medium">Book Entry:</span> {digimon.debut.bookEntry}</p>
+                          )}
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    )}
+                    {digimon.appearances && digimon.appearances.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold text-foreground mb-2">Other Appearances</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {digimon.appearances.map((appearance) => (
+                            <Badge key={appearance} variant="outline" className="text-sm">
+                              <Tv className="w-3 h-3 mr-1" />
+                              {appearance}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               )}
 
-              {/* Appearances Section */}
-              {digimon.appearances && digimon.appearances.length > 0 && (
+              {/* References Section */}
+              {digimon.references && digimon.references.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-foreground">
-                      <Tv className="w-5 h-5 text-secondary" />
-                      Appearances
+                      <ExternalLink className="w-5 h-5 text-secondary" />
+                      References
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="flex flex-wrap gap-2">
-                      {digimon.appearances.map((appearance) => (
-                        <Badge key={appearance} variant="outline" className="text-sm">
-                          {appearance}
-                        </Badge>
+                    <ul className="space-y-2">
+                      {digimon.references.map((reference, index) => (
+                        <li key={index} className="flex items-start gap-2 text-muted-foreground">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{reference}</span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </CardContent>
                 </Card>
               )}

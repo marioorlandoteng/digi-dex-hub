@@ -9,10 +9,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const playlists = [
-  { id: "digimon1", name: "Digimon Adventure", url: "https://www.youtube.com/watch?v=7cSB1IZU_8U" },
-  { id: "digimon2", name: "Digimon Adventure 02", url: "https://www.youtube.com/watch?v=3dZrKKECF6M" },
-  { id: "digimon3", name: "Digimon Tamers", url: "https://www.youtube.com/watch?v=bWOBt8gWEsM" },
-  { id: "digimon4", name: "Brave Heart", url: "https://www.youtube.com/watch?v=FGLGhJ_YQ-w" },
+  { id: "digimon1", name: "Digimon Adventure", url: "/music/digimon-theme.mp3" },
+  { id: "digimon2", name: "Digimon Adventure 02", url: "/music/digimon-theme.mp3" },
+  { id: "digimon3", name: "Digimon Tamers", url: "/music/digimon-theme.mp3" },
+  { id: "digimon4", name: "Brave Heart", url: "/music/digimon-theme.mp3" },
 ];
 
 export const MusicPlayer = () => {
@@ -20,10 +20,13 @@ export const MusicPlayer = () => {
   const [currentTrack, setCurrentTrack] = useState<string>("");
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const handlePlaylist = (name: string) => {
+  const handlePlaylist = (name: string, url: string) => {
     setCurrentTrack(name);
     setIsPlaying(true);
-    // In a real implementation, you would load and play the actual audio file
+    if (audioRef.current) {
+      audioRef.current.src = url;
+      audioRef.current.play();
+    }
   };
 
   const handleStop = () => {
@@ -36,6 +39,8 @@ export const MusicPlayer = () => {
 
   return (
     <div className="fixed top-20 right-4 z-50 flex items-center gap-2">
+      <audio ref={audioRef} loop />
+      
       {isPlaying && currentTrack && (
         <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 shadow-lg animate-fade-in">
           <div className="relative w-8 h-8">
@@ -72,7 +77,7 @@ export const MusicPlayer = () => {
           {playlists.map((playlist) => (
             <DropdownMenuItem
               key={playlist.id}
-              onClick={() => handlePlaylist(playlist.name)}
+              onClick={() => handlePlaylist(playlist.name, playlist.url)}
               className="cursor-pointer"
             >
               <Music className="mr-2 h-4 w-4" />

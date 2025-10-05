@@ -3,9 +3,17 @@ export interface Attack {
   description: string;
 }
 
+export interface Debut {
+  year: number;
+  product: string;
+  bookEntry?: string;
+}
+
 export interface Digimon {
   id: string;
   name: string;
+  kanji?: string;
+  romanization?: string;
   level: string;
   type: string;
   attribute: string;
@@ -16,13 +24,17 @@ export interface Digimon {
   priorForms: string[];
   nextForms: string[];
   attacks?: Attack[];
+  debut?: Debut;
   appearances?: string[];
+  references?: string[];
 }
 
 export const digimonDatabase: Digimon[] = [
   {
     id: "angemon",
     name: "Angemon",
+    kanji: "エンジェモン",
+    romanization: "Enjemon",
     level: "Champion",
     type: "Angel",
     attribute: "Vaccine",
@@ -37,11 +49,19 @@ export const digimonDatabase: Digimon[] = [
       { name: "Angel Rod", description: "Attacks with its Angel Rod." },
       { name: "Omni Typhoon", description: "Creates a divine tornado." }
     ],
-    appearances: ["Digimon Adventure (Season 1)", "Digimon Adventure 02", "Digimon Card Battle", "Digimon World"]
+    debut: {
+      year: 1999,
+      product: "Digimon Adventure",
+      bookEntry: "February 1999, Digital Monster Ver.2"
+    },
+    appearances: ["Digimon Adventure 02", "Digimon Card Battle", "Digimon World", "Digimon Masters"],
+    references: ["Digimon Reference Book", "Digimon Adventure Official Guide", "Bandai Digimon Encyclopedia"]
   },
   {
     id: "agumon",
     name: "Agumon",
+    kanji: "アグモン",
+    romanization: "Agumon",
     level: "Rookie",
     type: "Reptile",
     attribute: "Vaccine",
@@ -55,11 +75,19 @@ export const digimonDatabase: Digimon[] = [
       { name: "Pepper Breath", description: "Shoots a fireball from its mouth at opponents." },
       { name: "Claw Attack", description: "Slashes at enemies with its sharp claws." }
     ],
-    appearances: ["Digimon Adventure (Season 1)", "Digimon Adventure 02", "Digimon Tamers", "Digimon World", "Digimon Card Battle"]
+    debut: {
+      year: 1997,
+      product: "Digital Monster Ver.1",
+      bookEntry: "June 1997, First Generation Digital Monster"
+    },
+    appearances: ["Digimon Adventure", "Digimon Adventure 02", "Digimon Tamers", "Digimon World", "Digimon Card Battle"],
+    references: ["Digimon Reference Book", "Digital Monster Ver.1 Manual", "Digimon Adventure Series Guide"]
   },
   {
     id: "gabumon",
     name: "Gabumon",
+    kanji: "ガブモン",
+    romanization: "Gabumon",
     level: "Rookie",
     type: "Reptile",
     attribute: "Data",
@@ -73,11 +101,19 @@ export const digimonDatabase: Digimon[] = [
       { name: "Blue Blaster", description: "Shoots a stream of blue fire from its mouth." },
       { name: "Horn Attack", description: "Charges at the enemy with its horn." }
     ],
-    appearances: ["Digimon Adventure (Season 1)", "Digimon Adventure 02", "Digimon World", "Digimon Card Battle"]
+    debut: {
+      year: 1997,
+      product: "Digital Monster Ver.2",
+      bookEntry: "September 1997, Second Generation Digital Monster"
+    },
+    appearances: ["Digimon Adventure", "Digimon Adventure 02", "Digimon World", "Digimon Card Battle", "Digimon Masters"],
+    references: ["Digimon Reference Book", "Digital Monster Ver.2 Manual", "Digimon World Guide"]
   },
   {
     id: "patamon",
     name: "Patamon",
+    kanji: "パタモン",
+    romanization: "Patamon",
     level: "Rookie",
     type: "Mammal",
     attribute: "Data",
@@ -91,11 +127,19 @@ export const digimonDatabase: Digimon[] = [
       { name: "Boom Bubble", description: "Releases a ball of air that explodes on impact." },
       { name: "Body Slam", description: "Flies into the opponent with its full body weight." }
     ],
-    appearances: ["Digimon Adventure (Season 1)", "Digimon Adventure 02", "Digimon World", "Digimon Card Battle"]
+    debut: {
+      year: 1998,
+      product: "Digital Monster Ver.3",
+      bookEntry: "March 1998, Third Generation Digital Monster"
+    },
+    appearances: ["Digimon Adventure", "Digimon Adventure 02", "Digimon World", "Digimon Card Battle", "Digimon Heroes"],
+    references: ["Digimon Reference Book", "Digital Monster Ver.3 Manual", "Digimon Adventure Character Guide"]
   },
   {
     id: "greymon",
     name: "Greymon",
+    kanji: "グレイモン",
+    romanization: "Gureimon",
     level: "Champion",
     type: "Dinosaur",
     attribute: "Vaccine",
@@ -109,11 +153,19 @@ export const digimonDatabase: Digimon[] = [
       { name: "Nova Blast", description: "Launches a giant fireball from its mouth that incinerates everything." },
       { name: "Great Horn Attack", description: "Charges at the enemy with its massive horn." }
     ],
-    appearances: ["Digimon Adventure (Season 1)", "Digimon Adventure 02", "Digimon World", "Digimon Card Battle"]
+    debut: {
+      year: 1997,
+      product: "Digital Monster Ver.1",
+      bookEntry: "June 1997, First Generation Digital Monster"
+    },
+    appearances: ["Digimon Adventure", "Digimon Adventure 02", "Digimon World", "Digimon Card Battle", "Digimon Story"],
+    references: ["Digimon Reference Book", "Digital Monster Ver.1 Evolution Guide", "Digimon World Strategy Guide"]
   },
   {
     id: "magnaangemon",
     name: "MagnaAngemon",
+    kanji: "ホーリーエンジェモン",
+    romanization: "Hōrī Enjemon",
     level: "Ultimate",
     type: "Angel",
     attribute: "Vaccine",
@@ -128,7 +180,13 @@ export const digimonDatabase: Digimon[] = [
       { name: "Heaven's Gate", description: "Summons a heavenly gate that purifies evil spirits." },
       { name: "Excalibur", description: "Strikes with a holy sword of divine light." }
     ],
-    appearances: ["Digimon Adventure (Season 1)", "Digimon Adventure 02", "Digimon World 2", "Digimon Card Battle"]
+    debut: {
+      year: 1999,
+      product: "Digimon Adventure",
+      bookEntry: "August 1999, Pendulum series 2.0"
+    },
+    appearances: ["Digimon Adventure 02", "Digimon World 2", "Digimon Card Battle", "Digimon Masters"],
+    references: ["Digimon Reference Book", "Digimon Pendulum 2.0 Guide", "Digimon Adventure Complete Chronicle"]
   }
 ];
 

@@ -24,15 +24,18 @@ export const DigimonCard = ({ digimon }: DigimonCardProps) => {
               </Badge>
             </div>
           </div>
-          <div className="p-1.5">
-            <h3 className="text-xs font-bold mb-1 text-foreground group-hover:text-primary transition-colors truncate">
+          <div className="p-2">
+            <h3 className="text-sm font-bold mb-0.5 text-foreground group-hover:text-primary transition-colors truncate">
               {digimon.name}
             </h3>
+            {digimon.kanji && (
+              <p className="text-[10px] text-muted-foreground mb-1 truncate">{digimon.kanji}</p>
+            )}
             <div className="flex gap-1 flex-wrap">
-              <Badge variant="outline" className="text-[8px] px-1 py-0">
+              <Badge variant="outline" className="text-[9px] px-1.5 py-0.5">
                 {digimon.type}
               </Badge>
-              <Badge variant="secondary" className="text-[8px] px-1 py-0">
+              <Badge variant="secondary" className="text-[9px] px-1.5 py-0.5">
                 {digimon.attribute}
               </Badge>
             </div>

@@ -1,17 +1,17 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { digimonDatabase } from "@/data/digimonData";
 import { DigimonCard } from "@/components/DigimonCard";
 import { Header } from "@/components/Header";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_LOAD = 8;
 
 const Index = () => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_LOAD);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: false, align: "start" },
     [Autoplay({ delay: 3000, stopOnInteraction: false })]
@@ -25,14 +25,16 @@ const Index = () => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + ITEMS_PER_LOAD);
+  };
+
   // Popular digimon (all digimon for the carousel)
   const popularDigimon = digimonDatabase;
 
-  // Browse all with pagination
-  const totalPages = Math.ceil(digimonDatabase.length / ITEMS_PER_PAGE);
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-  const paginatedDigimon = digimonDatabase.slice(startIndex, endIndex);
+  // Browse all with load more
+  const visibleDigimon = digimonDatabase.slice(0, visibleCount);
+  const hasMore = visibleCount < digimonDatabase.length;
 
   return (
     <div className="min-h-screen bg-[var(--gradient-hero)]">
@@ -92,46 +94,22 @@ const Index = () => {
           </div>
           
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 mb-8">
-            {paginatedDigimon.map((digimon) => (
+            {visibleDigimon.map((digimon) => (
               <DigimonCard key={digimon.id} digimon={digimon} />
             ))}
           </div>
 
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2">
+          {/* Load More */}
+          {hasMore && (
+            <div className="flex justify-center">
               <Button
                 variant="outline"
-                size="sm"
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
+                size="lg"
+                onClick={handleLoadMore}
+                className="gap-2"
               >
-                <ChevronLeft className="h-4 w-4 mr-1" />
-                Previous
-              </Button>
-              
-              <div className="flex gap-1">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <Button
-                    key={page}
-                    variant={currentPage === page ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setCurrentPage(page)}
-                    className="w-8 h-8 p-0"
-                  >
-                    {page}
-                  </Button>
-                ))}
-              </div>
-
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                disabled={currentPage === totalPages}
-              >
-                Next
-                <ChevronRight className="h-4 w-4 ml-1" />
+                <Plus className="h-4 w-4" />
+                Load More
               </Button>
             </div>
           )}
